@@ -28,6 +28,7 @@ fn main() {
 
     let mut opts = Options::new();
     opts.optflag("h", "help", "print this help menu");
+    opts.optflag("v", "version", "print version");
     opts.optopt(
         "m",
         "mode",
@@ -48,6 +49,13 @@ fn main() {
     // help --------------------------------------------------------------------
     if matches.opt_present("h") {
         print_usage(&program, opts);
+        return;
+    }
+
+    // version -----------------------------------------------------------------
+    if matches.opt_present("v") {
+        const VERSION: Option<&str> = option_env!("CARGO_PKG_VERSION");
+        println!("v{}", VERSION.unwrap_or("unknown"));
         return;
     }
 
